@@ -7,7 +7,7 @@ class BeforeAfter extends StatefulWidget {
   final double imageHeight;
   final double imageWidth;
   final double imageCornerRadius;
-  final Color thumbColor;
+  final Color thumbColor, sliderColor;
   final double thumbRadius;
   final Color overlayColor;
   final bool isVertical;
@@ -20,6 +20,7 @@ class BeforeAfter extends StatefulWidget {
     this.imageWidth = 0,
     this.imageCornerRadius = 8.0,
     this.thumbColor = Colors.white,
+    this.sliderColor = Colors.black,
     this.thumbRadius = 16.0,
     this.overlayColor = Colors.black54,
     this.isVertical = false,
@@ -69,8 +70,8 @@ class _BeforeAfterState extends State<BeforeAfter> {
             data: SliderThemeData(
               trackHeight: 0.0,
               overlayColor: widget.overlayColor,
-              thumbShape:
-                  CustomThumbShape(widget.thumbRadius, widget.thumbColor),
+              thumbShape: CustomThumbShape(
+                  widget.thumbRadius, widget.thumbColor, widget.sliderColor),
             ),
             child: widget.isVertical
                 ? RotatedBox(
@@ -118,8 +119,9 @@ class SizedImage extends StatelessWidget {
 class CustomThumbShape extends SliderComponentShape {
   final double _thumbRadius;
   final Color _thumbColor;
+  final Color _sliderColor;
 
-  CustomThumbShape(this._thumbRadius, this._thumbColor);
+  CustomThumbShape(this._thumbRadius, this._thumbColor, this._sliderColor);
 
   @override
   Size getPreferredSize(bool isEnabled, bool isDiscrete) {
@@ -152,24 +154,16 @@ class CustomThumbShape extends SliderComponentShape {
     final Paint paintStroke = Paint()
       ..isAntiAlias = true
       ..strokeWidth = 4.0
-      ..color = _thumbColor
-      ..style = PaintingStyle.stroke;
-
-    canvas.drawCircle(
-      center,
-      _thumbRadius,
-      paintStroke,
-    );
-
-    canvas.drawCircle(
-      center,
-      _thumbRadius - 6,
-      paint,
-    );
+      ..color = _sliderColor
+      ..style = PaintingStyle.fill;
 
     canvas.drawRect(
         Rect.fromCenter(
             center: center, width: 4.0, height: parentBox.size.height),
+        paintStroke);
+    canvas.drawRect(
+        Rect.fromCenter(
+            center: center, width: 6.0, height: parentBox.size.height / 8),
         paint);
   }
 }
