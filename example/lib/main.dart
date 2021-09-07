@@ -31,6 +31,8 @@ class MyHomePage extends StatelessWidget {
               child: BeforeAfter(
                 beforeImage: Image.asset('assets/after.jpg'),
                 afterImage: Image.asset('assets/before.jpg'),
+                thumbColor: Colors.yellow,
+                sliderColor: Colors.white,
               ),
             ),
             Expanded(
@@ -39,6 +41,8 @@ class MyHomePage extends StatelessWidget {
                 beforeImage: Image.asset('assets/after.jpg'),
                 afterImage: Image.asset('assets/before.jpg'),
                 isVertical: true,
+                thumbColor: Colors.red,
+                sliderColor: Colors.blue,
               ),
             ),
           ],
